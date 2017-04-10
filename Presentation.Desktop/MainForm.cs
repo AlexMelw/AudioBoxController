@@ -4,6 +4,7 @@ using System.IO;
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using AxWMPLib;
 using Presentation.Desktop.Properties;
 using Syncfusion.Windows.Forms.Tools;
 
@@ -14,7 +15,8 @@ namespace Presentation.Desktop
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
         private SoundPlayer _soundPlayer;
-        private string _audioFilePath;
+        private string _firstAudioFilePath;
+        private string _secondAudioFilePath;
 
         #region CONSTRUCTORS
 
@@ -38,35 +40,51 @@ namespace Presentation.Desktop
             RegisterControlsEvents();
         }
 
+        private void OpenAudioFile(AxWindowsMediaPlayer player, ref string audioFilePath)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = Resources.FileFilters;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK) // Test result.
+                {
+                    audioFilePath = openFileDialog.FileName;
+                    try
+                    {
+                        if (!audioFilePath.EndsWith(@".wav", StringComparison.OrdinalIgnoreCase)) { }
+                        else
+                        {
+                            //_soundPlayer = new SoundPlayer(_firstAudioFilePath);
+
+                            player.URL = audioFilePath;
+                        }
+                    }
+                    catch (IOException exception)
+                    {
+                        Console.WriteLine(exception.StackTrace);
+                        throw;
+                    }
+                }
+            }
+        }
+
         private void RegisterControlsEvents()
         {
             #region Menu Buttons
 
-            loadAudioFileButtonAdv.Click += (sender, args) =>
-            {
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
-                {
-                    openFileDialog.Filter = Resources.FileFilters;
+            firstLoadAudioFileButtonAdv.Click +=
+                (sender, args) => OpenAudioFile(firstAxWindowsMediaPlayer, ref _firstAudioFilePath);
 
-                    if (openFileDialog.ShowDialog() == DialogResult.OK) // Test result.
-                    {
-                        _audioFilePath = openFileDialog.FileName;
-                        try
-                        {
-                            if (!_audioFilePath.EndsWith(@".wav", StringComparison.OrdinalIgnoreCase)) { }
-                            else
-                            {
-                                _soundPlayer = new SoundPlayer(_audioFilePath);
-                            }
-                        }
-                        catch (IOException exception)
-                        {
-                            Console.WriteLine(exception.StackTrace);
-                            throw;
-                        }
-                    }
-                }
-            };
+            secondLoadAudioFileButtonAdv.Click +=
+                (sender, args) =>
+                {
+                    OpenAudioFile(secondAxWindowsMediaPlayer, ref _secondAudioFilePath);
+                    this.Height = 600;
+                    secondAxWindowsMediaPlayer.Location = new Point(
+                        firstAxWindowsMediaPlayer.Left,
+                        secondAxWindowsMediaPlayer.Top
+                    );
+                };
 
             #endregion
 
@@ -112,6 +130,7 @@ namespace Presentation.Desktop
 
             this.BackColor = Color.FromArgb(226, 226, 226);
             this.FormBorderStyle = FormBorderStyle.None;
+            this.Height = 300;
 
             #endregion
 
@@ -126,7 +145,8 @@ namespace Presentation.Desktop
 
             #region Load Audio File
 
-            loadAudioFileButtonAdv.Text = @"Load";
+            firstLoadAudioFileButtonAdv.Text = @"Load First Track";
+            secondLoadAudioFileButtonAdv.Text = @"Load Second Track";
 
             #endregion
         }

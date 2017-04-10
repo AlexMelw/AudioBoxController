@@ -36,79 +36,104 @@ namespace Presentation.Desktop
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection1 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection1 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer1 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
-            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection1 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
+            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection4 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection4 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer4 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
+            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection4 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.playToggleButton = new Syncfusion.Windows.Forms.Tools.ToggleButton();
             this.closePictureBox = new System.Windows.Forms.PictureBox();
-            this.loadAudioFileButtonAdv = new Syncfusion.Windows.Forms.ButtonAdv();
-            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.firstLoadAudioFileButtonAdv = new Syncfusion.Windows.Forms.ButtonAdv();
+            this.firstAxWindowsMediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
+            this.secondAxWindowsMediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
+            this.secondLoadAudioFileButtonAdv = new Syncfusion.Windows.Forms.ButtonAdv();
             ((System.ComponentModel.ISupportInitialize)(this.playToggleButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.firstAxWindowsMediaPlayer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.secondAxWindowsMediaPlayer)).BeginInit();
             this.SuspendLayout();
             // 
             // playToggleButton
             // 
-            this.playToggleButton.ActiveState = activeStateCollection1;
+            this.playToggleButton.ActiveState = activeStateCollection4;
             this.playToggleButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.playToggleButton.ForeColor = System.Drawing.Color.Black;
-            inactiveStateCollection1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-            this.playToggleButton.InactiveState = inactiveStateCollection1;
-            this.playToggleButton.Location = new System.Drawing.Point(734, 12);
+            inactiveStateCollection4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+            this.playToggleButton.InactiveState = inactiveStateCollection4;
+            this.playToggleButton.Location = new System.Drawing.Point(87, 245);
             this.playToggleButton.MinimumSize = new System.Drawing.Size(52, 20);
             this.playToggleButton.Name = "playToggleButton";
-            this.playToggleButton.Renderer = toggleButtonRenderer1;
+            this.playToggleButton.Renderer = toggleButtonRenderer4;
             this.playToggleButton.Size = new System.Drawing.Size(90, 40);
-            this.playToggleButton.Slider = sliderCollection1;
+            this.playToggleButton.Slider = sliderCollection4;
             this.playToggleButton.TabIndex = 0;
             this.playToggleButton.Text = "toggleButton1";
             // 
             // closePictureBox
             // 
             this.closePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.closePictureBox.Location = new System.Drawing.Point(850, 12);
+            this.closePictureBox.Location = new System.Drawing.Point(365, 12);
             this.closePictureBox.Name = "closePictureBox";
             this.closePictureBox.Size = new System.Drawing.Size(32, 32);
             this.closePictureBox.TabIndex = 1;
             this.closePictureBox.TabStop = false;
             // 
-            // loadAudioFileButtonAdv
+            // firstLoadAudioFileButtonAdv
             // 
-            this.loadAudioFileButtonAdv.BeforeTouchSize = new System.Drawing.Size(75, 23);
-            this.loadAudioFileButtonAdv.IsBackStageButton = false;
-            this.loadAudioFileButtonAdv.Location = new System.Drawing.Point(685, 333);
-            this.loadAudioFileButtonAdv.Name = "loadAudioFileButtonAdv";
-            this.loadAudioFileButtonAdv.Size = new System.Drawing.Size(75, 23);
-            this.loadAudioFileButtonAdv.TabIndex = 2;
-            this.loadAudioFileButtonAdv.Text = "buttonAdv1";
+            this.firstLoadAudioFileButtonAdv.BeforeTouchSize = new System.Drawing.Size(112, 23);
+            this.firstLoadAudioFileButtonAdv.IsBackStageButton = false;
+            this.firstLoadAudioFileButtonAdv.Location = new System.Drawing.Point(12, 16);
+            this.firstLoadAudioFileButtonAdv.Name = "firstLoadAudioFileButtonAdv";
+            this.firstLoadAudioFileButtonAdv.Size = new System.Drawing.Size(112, 23);
+            this.firstLoadAudioFileButtonAdv.TabIndex = 2;
+            this.firstLoadAudioFileButtonAdv.Text = "first load";
             // 
-            // axWindowsMediaPlayer1
+            // firstAxWindowsMediaPlayer
             // 
-            this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(12, 12);
-            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
-            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(385, 169);
-            this.axWindowsMediaPlayer1.TabIndex = 3;
+            this.firstAxWindowsMediaPlayer.Enabled = true;
+            this.firstAxWindowsMediaPlayer.Location = new System.Drawing.Point(12, 60);
+            this.firstAxWindowsMediaPlayer.Name = "firstAxWindowsMediaPlayer";
+            this.firstAxWindowsMediaPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("firstAxWindowsMediaPlayer.OcxState")));
+            this.firstAxWindowsMediaPlayer.Size = new System.Drawing.Size(385, 169);
+            this.firstAxWindowsMediaPlayer.TabIndex = 3;
+            // 
+            // secondAxWindowsMediaPlayer
+            // 
+            this.secondAxWindowsMediaPlayer.Enabled = true;
+            this.secondAxWindowsMediaPlayer.Location = new System.Drawing.Point(2, 359);
+            this.secondAxWindowsMediaPlayer.Name = "secondAxWindowsMediaPlayer";
+            this.secondAxWindowsMediaPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("secondAxWindowsMediaPlayer.OcxState")));
+            this.secondAxWindowsMediaPlayer.Size = new System.Drawing.Size(385, 164);
+            this.secondAxWindowsMediaPlayer.TabIndex = 4;
+            // 
+            // secondLoadAudioFileButtonAdv
+            // 
+            this.secondLoadAudioFileButtonAdv.BeforeTouchSize = new System.Drawing.Size(112, 23);
+            this.secondLoadAudioFileButtonAdv.IsBackStageButton = false;
+            this.secondLoadAudioFileButtonAdv.Location = new System.Drawing.Point(140, 16);
+            this.secondLoadAudioFileButtonAdv.Name = "secondLoadAudioFileButtonAdv";
+            this.secondLoadAudioFileButtonAdv.Size = new System.Drawing.Size(112, 23);
+            this.secondLoadAudioFileButtonAdv.TabIndex = 5;
+            this.secondLoadAudioFileButtonAdv.Text = "second load";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 549);
-            this.Controls.Add(this.axWindowsMediaPlayer1);
-            this.Controls.Add(this.loadAudioFileButtonAdv);
+            this.ClientSize = new System.Drawing.Size(409, 549);
             this.Controls.Add(this.closePictureBox);
+            this.Controls.Add(this.secondLoadAudioFileButtonAdv);
+            this.Controls.Add(this.secondAxWindowsMediaPlayer);
+            this.Controls.Add(this.firstAxWindowsMediaPlayer);
+            this.Controls.Add(this.firstLoadAudioFileButtonAdv);
             this.Controls.Add(this.playToggleButton);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.playToggleButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.firstAxWindowsMediaPlayer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.secondAxWindowsMediaPlayer)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -117,8 +142,10 @@ namespace Presentation.Desktop
 
         private Syncfusion.Windows.Forms.Tools.ToggleButton playToggleButton;
         private System.Windows.Forms.PictureBox closePictureBox;
-        private Syncfusion.Windows.Forms.ButtonAdv loadAudioFileButtonAdv;
-        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
+        private Syncfusion.Windows.Forms.ButtonAdv firstLoadAudioFileButtonAdv;
+        private AxWMPLib.AxWindowsMediaPlayer firstAxWindowsMediaPlayer;
+        private AxWMPLib.AxWindowsMediaPlayer secondAxWindowsMediaPlayer;
+        private Syncfusion.Windows.Forms.ButtonAdv secondLoadAudioFileButtonAdv;
     }
 }
 
