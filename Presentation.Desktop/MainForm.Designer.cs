@@ -36,10 +36,10 @@ namespace Presentation.Desktop
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection4 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection4 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer4 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
-            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection4 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
+            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection2 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection2 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer2 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
+            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection2 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.playToggleButton = new Syncfusion.Windows.Forms.Tools.ToggleButton();
             this.closePictureBox = new System.Windows.Forms.PictureBox();
@@ -55,17 +55,17 @@ namespace Presentation.Desktop
             // 
             // playToggleButton
             // 
-            this.playToggleButton.ActiveState = activeStateCollection4;
+            this.playToggleButton.ActiveState = activeStateCollection2;
             this.playToggleButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.playToggleButton.ForeColor = System.Drawing.Color.Black;
-            inactiveStateCollection4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-            this.playToggleButton.InactiveState = inactiveStateCollection4;
+            inactiveStateCollection2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+            this.playToggleButton.InactiveState = inactiveStateCollection2;
             this.playToggleButton.Location = new System.Drawing.Point(87, 245);
             this.playToggleButton.MinimumSize = new System.Drawing.Size(52, 20);
             this.playToggleButton.Name = "playToggleButton";
-            this.playToggleButton.Renderer = toggleButtonRenderer4;
+            this.playToggleButton.Renderer = toggleButtonRenderer2;
             this.playToggleButton.Size = new System.Drawing.Size(90, 40);
-            this.playToggleButton.Slider = sliderCollection4;
+            this.playToggleButton.Slider = sliderCollection2;
             this.playToggleButton.TabIndex = 0;
             this.playToggleButton.Text = "toggleButton1";
             // 
