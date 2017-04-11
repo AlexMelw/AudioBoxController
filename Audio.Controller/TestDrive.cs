@@ -9,17 +9,18 @@ namespace Audio.Controller
 {
     class TestDrive
     {
-        static void Run(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("Playing test.mp3. Press Q to quit.\n");
             // create ZPlay class
             ZPlay player = new ZPlay();
             // open file
-            if (player.OpenFile("song.mp3", TStreamFormat.sfAutodetect) == false)
+            if (player.AddFile("1.mp3", TStreamFormat.sfAutodetect) == false)
             {
                 Console.WriteLine(player.GetError());
                 return;
             }
+
 
             // get song length
             TStreamInfo info = new TStreamInfo();
@@ -51,7 +52,9 @@ namespace Audio.Controller
                 {
                     var cki = Console.ReadKey(true);
                     if (cki.Key == ConsoleKey.Q)
+                    {
                         player.StopPlayback();
+                    }
                 }
             }
         }
