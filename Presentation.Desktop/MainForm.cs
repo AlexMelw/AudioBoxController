@@ -12,7 +12,7 @@ using libZPlay;
 using Presentation.Desktop.Properties;
 using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
-using Timer = System.Threading.Timer;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Presentation.Desktop
 {
@@ -52,17 +52,32 @@ namespace Presentation.Desktop
 
             _volumeRadialMenuSlider = new RadialMenuSlider();
 
-            _timer = new Timer(
-                callback: o =>
-                {
-                    if (FFTPictureBox.InvokeRequired)
-                    {
-                        FFTPictureBox.Invoke((MethodInvoker) delegate { FFTPictureBox.Refresh(); });
-                    }
-                },
-                state: null,
-                dueTime: 0,
-                period: 50);
+            _timer = new Timer();
+            _timer.Interval = 50;
+            _timer.Tick += (sender, args) =>
+            {
+                if (FFTPictureBox.InvokeRequired)
+                    FFTPictureBox.Invoke((MethodInvoker) (() =>
+                        FFTPictureBox.Refresh()));
+                else
+                    FFTPictureBox.Refresh();
+
+                if (playbackProgressBarAdv.InvokeRequired)
+                    playbackProgressBarAdv.Invoke((MethodInvoker) (() =>
+                        UpdateProgressBar(ref _player)));
+                else
+                    UpdateProgressBar(ref _player);
+            };
+
+            //_timer = new Timer(
+            //    callback: o =>
+            //    {
+            //        if (FFTPictureBox.InvokeRequired)
+            //            FFTPictureBox.Invoke((MethodInvoker) (() => FFTPictureBox.Refresh()));
+            //    },
+            //    state: null,
+            //    dueTime: 0,
+            //    period: 50);
         }
 
         #endregion
@@ -98,6 +113,7 @@ namespace Presentation.Desktop
                         }
 
                         AdjustPlayerParams(ref player);
+                        SetProgressBar(ref player);
                     }
                     catch (IOException exception)
                     {
@@ -108,6 +124,39 @@ namespace Presentation.Desktop
             }
         }
 
+        private TStreamInfo GetStreamInfo(ref ZPlay player)
+        {
+            TStreamInfo streamInfo = new TStreamInfo();
+            player.GetStreamInfo(ref streamInfo);
+
+            return streamInfo;
+        }
+
+        private TStreamTime GetPosition(ref ZPlay player)
+        {
+            TStreamTime position = new TStreamTime();
+            player?.GetPosition(ref position);
+
+            return position;
+        }
+
+        private void SetProgressBar(ref ZPlay player)
+        {
+            playbackProgressBarAdv.Minimum = 0;
+            playbackProgressBarAdv.Value = 0;
+
+            TStreamInfo info = GetStreamInfo(ref player);
+            playbackProgressBarAdv.Maximum = Convert.ToInt32(info.Length.ms);
+        }
+
+        private void UpdateProgressBar(ref ZPlay player)
+        {
+            int positionMilisec = Convert.ToInt32(GetPosition(ref player).ms);
+
+            if (playbackProgressBarAdv.Maximum > positionMilisec)
+                playbackProgressBarAdv.Value = positionMilisec;
+        }
+
         private void AdjustPlayerParams(ref ZPlay player)
         {
             player.SetPlayerVolume(50, 50);
@@ -115,6 +164,8 @@ namespace Presentation.Desktop
 
             playerVolumeTrackBarEx.Value = 50;
             masterVolumeTrackBarEx.Value = 100;
+            pitchTrackBarEx.Value = 100;
+            rateTrackBarEx.Value = 100;
         }
 
         private void RegisterControlsEvents()
@@ -136,10 +187,48 @@ namespace Presentation.Desktop
 
             #endregion
 
+            pitchTrackBarEx.Click += (sender, args) =>
+            {
+                int pitchValue = ((TrackBarEx) sender).Value;
+                _player?.SetPitch(pitchValue);
+            };
+
+            rateTrackBarEx.Click += (sender, args) =>
+            {
+                int rateValue = ((TrackBarEx) sender).Value;
+                _player?.SetRate(rateValue);
+            };
+
+            tempoTrackBarEx.Click += (sender, args) =>
+            {
+                int tempoValue = ((TrackBarEx) sender).Value;
+                _player?.SetTempo(tempoValue);
+            };
+
+            reversePlaybackToggleButton.ToggleStateChanged += (sender, args) =>
+            {
+                if (_player == null)
+                    return;
+
+                ToggleButton self = (ToggleButton) sender;
+
+                if (self.ToggleState == ToggleButtonState.Active)
+                {
+                    _player?.ReverseMode(true);
+                }
+                else
+                    // ToggleButtonState.Inactive
+                    _player?.ReverseMode(false);
+            };
+
             _volumeRadialMenuSlider.SliderValueChanged += (sender, args) =>
             {
-                int volumeLevel = (int) ((RadialMenuSlider)sender).SliderValue;
-                _player?.SetPlayerVolume(volumeLevel, volumeLevel);
+                int volumeLevel = (int) ((RadialMenuSlider) sender).SliderValue;
+
+                if (FFTPictureBox.InvokeRequired)
+                    FFTPictureBox.Invoke((MethodInvoker) (() => { _player?.SetPlayerVolume(volumeLevel, volumeLevel); }));
+                else
+                    _player?.SetPlayerVolume(volumeLevel, volumeLevel);
             };
 
             radButton.Click += (sender, args) =>
@@ -159,8 +248,6 @@ namespace Presentation.Desktop
 
                 _radialMenu.WedgeCount = 1;
 
-                _radialMenu.Icon = Image
-                    .FromFile($@"{Path.GetDirectoryName(Application.ExecutablePath)}\Icons\arrow-back-icon.png");
                 _radialMenu.MenuIcon =
                     Image.FromFile($@"{Path.GetDirectoryName(Application.ExecutablePath)}\Icons\Volume-high-icon.png");
 
@@ -173,6 +260,9 @@ namespace Presentation.Desktop
                 #region TRASH
 
                 //_radialMenu.Items.Add(_volumeRadialMenuSlider);
+                //_radialMenu.Icon = Image
+                //    .FromFile($@"{Path.GetDirectoryName(Application.ExecutablePath)}\Icons\arrow-back-icon.png");
+
 
                 //ImageCollection ic = new ImageCollection();
                 //ic.Add(Image.FromFile($@"{Path.GetDirectoryName(Application.ExecutablePath)}\Icons\arrow-back-icon.png"));
@@ -200,15 +290,16 @@ namespace Presentation.Desktop
                 _radialMenu.ShowRadialMenu();
                 //_radialMenu.HidePopup();
                 //_radialMenu.ShowPopup(new Point());
+
                 #endregion
-                
+
                 _radialMenu.PreviousLevelOpened += (radialMenuSender, opening) => _radialMenu.Dispose();
 
                 // Emulate mouse click on 50% Volume on _volumeRadialMenuSlider
                 // because there's a library bug that cannot update value
                 // by .SliderValue property as it's meant to be updated.
                 Point location = MousePosition;
-                LeftMouseClick(location.X-40, location.Y+15);
+                LeftMouseClick(location.X - 40, location.Y + 15);
             };
 
 
@@ -228,11 +319,14 @@ namespace Presentation.Desktop
                 if (playToggleButton.ToggleState == ToggleButtonState.Active)
                 {
                     _player.StartPlayback();
-                    FFTPictureBox.Refresh();
+                    _timer.Start();
                     return;
                 }
                 else
+                {
                     _player.StopPlayback(); // ToggleButtonState.Inactive
+                    _timer.Stop();
+                }
             };
 
             playerVolumeTrackBarEx.Scroll += (sender, args) =>
@@ -272,6 +366,17 @@ namespace Presentation.Desktop
 
             #endregion
 
+            #region Reverse Playback Toggle Button
+
+            reversePlaybackToggleButton.ActiveState.BackColor = playToggleButton.InactiveState.BackColor;
+            reversePlaybackToggleButton.ActiveState.HoverColor = playToggleButton.InactiveState.HoverColor;
+            reversePlaybackToggleButton.ActiveState.ForeColor = playToggleButton.InactiveState.ForeColor;
+
+            reversePlaybackToggleButton.ActiveState.Text = @"NORMAL   ";
+            reversePlaybackToggleButton.InactiveState.Text = @"REVERSE   ";
+
+            #endregion
+
             #region MainForm
 
             this.BackColor = Color.FromArgb(226, 226, 226);
@@ -303,11 +408,35 @@ namespace Presentation.Desktop
 
             masterVolumeTrackBarEx.Maximum = 100;
             masterVolumeTrackBarEx.Minimum = 0;
-            masterVolumeTrackBarEx.Value = 50;
+            masterVolumeTrackBarEx.Value = 100;
 
             playerVolumeTrackBarEx.Maximum = 100;
             playerVolumeTrackBarEx.Minimum = 1;
             playerVolumeTrackBarEx.Value = 50;
+
+            #endregion
+
+            #region Pitch TrackBar
+
+            pitchTrackBarEx.Minimum = 10;
+            pitchTrackBarEx.Maximum = 200;
+            pitchTrackBarEx.Value = 100;
+
+            #endregion
+
+            #region Rate TrackBar
+
+            rateTrackBarEx.Minimum = 10;
+            rateTrackBarEx.Maximum = 200;
+            rateTrackBarEx.Value = 100;
+
+            #endregion
+
+            #region Tempo TrackBar
+
+            tempoTrackBarEx.Minimum = 10;
+            tempoTrackBarEx.Maximum = 200;
+            tempoTrackBarEx.Value = 100;
 
             #endregion
         }
