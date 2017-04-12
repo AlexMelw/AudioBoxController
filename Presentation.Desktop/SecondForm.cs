@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
@@ -16,7 +17,7 @@ using Timer = System.Threading.Timer;
 
 namespace Presentation.Desktop
 {
-    public partial class MainForm : Form
+    public partial class SecondForm : Form
     {
         //This is a replacement for Cursor.Position in WinForms
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -40,7 +41,7 @@ namespace Presentation.Desktop
         private string _firstAudioFilePath;
         private string _secondAudioFilePath;
         private Timer _timer;
-        private ZPlay _player;
+        public ZPlay Player;
         private ZPlay _metronomePlayer;
         private RadialMenu _radialMenu;
         private RadialMenuSlider _volumeRadialMenuSlider;
@@ -48,11 +49,15 @@ namespace Presentation.Desktop
         private bool _isReverseModeSwitch = false;
         private bool _isPaused = false;
         private bool _isPlaying = false;
-        private SecondForm _secondForm;
+
+        public void SetIsPaused(bool value) => _isPaused = value;
+        public bool GetIsPaused(bool value) => _isPaused;
+        public void SetIsPlaying(bool value) => _isPlaying = value;
+        public bool GetIsPlaying(bool value) => _isPlaying;
 
         #region CONSTRUCTORS
 
-        public MainForm()
+        public SecondForm()
         {
             InitializeComponent();
 
@@ -81,19 +86,19 @@ namespace Presentation.Desktop
                 callback: o =>
                 {
                     if (FFTPictureBox.InvokeRequired)
-                        FFTPictureBox.Invoke((MethodInvoker) (() =>
+                        FFTPictureBox.Invoke((MethodInvoker)(() =>
                         {
                             if (FFTPictureBox.InvokeRequired)
-                                FFTPictureBox.Invoke((MethodInvoker) (() =>
-                                    FFTPictureBox.Refresh()));
+                                FFTPictureBox.Invoke((MethodInvoker)(() =>
+                                   FFTPictureBox.Refresh()));
                             else
                                 FFTPictureBox.Refresh();
 
                             if (playbackProgressBarAdv.InvokeRequired)
-                                playbackProgressBarAdv.Invoke((MethodInvoker) (() =>
-                                    UpdateProgressBar(ref _player)));
+                                playbackProgressBarAdv.Invoke((MethodInvoker)(() =>
+                                   UpdateProgressBar(ref Player)));
                             else
-                                UpdateProgressBar(ref _player);
+                                UpdateProgressBar(ref Player);
                         }));
                 },
                 state: null,
@@ -109,7 +114,7 @@ namespace Presentation.Desktop
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void SecondForm_Load(object sender, EventArgs e)
         {
             SetControlsProperties();
             RegisterControlsEvents();
@@ -134,7 +139,7 @@ namespace Presentation.Desktop
 
                         if (player.OpenFile(openFileDialog.FileName, TStreamFormat.sfAutodetect) == false)
                         {
-                            MessageBox.Show($@"ERROR {_player.GetError()}");
+                            MessageBox.Show($@"ERROR {this.Player.GetError()}");
                             return;
                         }
 
@@ -151,7 +156,7 @@ namespace Presentation.Desktop
             }
         }
 
-        private void ResetToggleButtons(ref ZPlay player)
+        public void ResetToggleButtons(ref ZPlay player)
         {
             if (reversePlaybackToggleButton.ToggleState == ToggleButtonState.Active)
                 reversePlaybackToggleButton.SwitchState();
@@ -173,7 +178,7 @@ namespace Presentation.Desktop
             return position;
         }
 
-        private void SetProgressBar(ref ZPlay player)
+        public void SetProgressBar(ref ZPlay player)
         {
             playbackProgressBarAdv.Minimum = 0;
             playbackProgressBarAdv.Value = 0;
@@ -243,8 +248,8 @@ namespace Presentation.Desktop
             if (IsAudioTrackEndReached(ref player) && _isMetronomeSwitch)
             {
                 if (metronomeToggleButton.InvokeRequired)
-                    metronomeToggleButton.Invoke((MethodInvoker) (() =>
-                        metronomeToggleButton.SwitchState()));
+                    metronomeToggleButton.Invoke((MethodInvoker)(() =>
+                       metronomeToggleButton.SwitchState()));
                 else
                     metronomeToggleButton.SwitchState();
 
@@ -252,7 +257,7 @@ namespace Presentation.Desktop
             }
         }
 
-        private void AdjustPlayerParams(ref ZPlay player)
+        public void AdjustPlayerParams(ref ZPlay player)
         {
             player.SetPlayerVolume(50, 50);
             player.SetMasterVolume(100, 100);
@@ -267,51 +272,7 @@ namespace Presentation.Desktop
         {
             #region Menu Buttons
 
-            firstLoadAudioFileButtonAdv.Click += (sender, args) => OpenAudioFile(ref _player);
-
-            secondLoadAudioFileButtonAdv.Click += (sender, args) =>
-            {
-                if (_secondForm == null)
-                    _secondForm = new SecondForm();
-
-                _secondForm.Hide();
-
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
-                {
-                    openFileDialog.Filter = Resources.FileFilters;
-
-                    if (openFileDialog.ShowDialog() == DialogResult.OK) // Test result.
-                    {
-                        try
-                        {
-                            _secondForm.Player?.StopPlayback();
-                            _secondForm.SetIsPaused(false);
-                            _secondForm.SetIsPlaying(false);
-
-                            if (_secondForm.Player == null)
-                                _secondForm.Player = new ZPlay();
-
-                            if (_secondForm.Player.OpenFile(openFileDialog.FileName, TStreamFormat.sfAutodetect) ==
-                                false)
-                            {
-                                MessageBox.Show($@"ERROR {_player.GetError()}");
-                                return;
-                            }
-
-                            _secondForm.AdjustPlayerParams(ref _secondForm.Player);
-                            _secondForm.SetProgressBar(ref _secondForm.Player);
-                            _secondForm.ResetToggleButtons(ref _secondForm.Player);
-                        }
-                        catch (IOException exception)
-                        {
-                            Console.WriteLine(exception.StackTrace);
-                            throw;
-                        }
-                    }
-                }
-
-                _secondForm.Show(this);
-            };
+            loadAudioFileButtonAdv.Click += (sender, args) => OpenAudioFile(ref Player);
 
             //secondLoadAudioFileButtonAdv.Click +=
             //    (sender, args) =>
@@ -328,16 +289,16 @@ namespace Presentation.Desktop
 
             pitchTrackBarEx.MouseUp += (sender, args) =>
             {
-                int pitchValue = ((TrackBarEx) sender).Value;
+                int pitchValue = ((TrackBarEx)sender).Value;
                 pitchNumericUpDown.Value = pitchValue >= 10 ? pitchValue : 10;
             };
 
             pitchNumericUpDown.ValueChanged += (sender, args) =>
             {
-                int pitchValue = (int) ((NumericUpDown) sender).Value;
+                int pitchValue = (int)((NumericUpDown)sender).Value;
                 pitchTrackBarEx.Value = pitchValue;
 
-                _player?.SetPitch(pitchValue);
+                Player?.SetPitch(pitchValue);
             };
 
 
@@ -345,13 +306,13 @@ namespace Presentation.Desktop
 
             frequencyTrackBarEx.MouseUp += (sender, args) =>
             {
-                int pitchValue = ((TrackBarEx) sender).Value;
+                int pitchValue = ((TrackBarEx)sender).Value;
                 frequencyNumericUpDown.Value = pitchValue >= 20 ? pitchValue : 20;
             };
 
             frequencyNumericUpDown.ValueChanged += (sender, args) =>
             {
-                int pitchValue = (int) ((NumericUpDown) sender).Value;
+                int pitchValue = (int)((NumericUpDown)sender).Value;
                 frequencyTrackBarEx.Value = pitchValue;
 
                 _metronomePlayer?.SetPitch(pitchValue);
@@ -361,7 +322,7 @@ namespace Presentation.Desktop
 
             periodicityTrackBarEx.MouseUp += (sender, args) =>
             {
-                int tempoValue = ((TrackBarEx) sender).Value;
+                int tempoValue = ((TrackBarEx)sender).Value;
                 //periodicityTextBox.Text = $@"{BpmToPeriodicity(tempoValue >= 20 ? tempoValue : 20)}";
                 periodicityTextBox.Text =
                     $@"{BpmToPeriodicity(periodicityTrackBarEx.Maximum - tempoValue + periodicityTrackBarEx.Minimum)}";
@@ -380,31 +341,31 @@ namespace Presentation.Desktop
 
             rateTrackBarEx.Click += (sender, args) =>
             {
-                int rateValue = ((TrackBarEx) sender).Value;
-                _player?.SetTempo(rateValue);
+                int rateValue = ((TrackBarEx)sender).Value;
+                Player?.SetTempo(rateValue);
             };
 
             tempoTrackBarEx.Click += (sender, args) =>
             {
-                int tempoValue = ((TrackBarEx) sender).Value;
-                _player?.SetTempo(tempoValue);
+                int tempoValue = ((TrackBarEx)sender).Value;
+                Player?.SetTempo(tempoValue);
             };
 
             reversePlaybackToggleButton.ToggleStateChanged += (sender, args) =>
             {
-                if (_player == null)
+                if (Player == null)
                     return;
 
-                ToggleButton self = (ToggleButton) sender;
+                ToggleButton self = (ToggleButton)sender;
 
                 if (self.ToggleState == ToggleButtonState.Active)
                 {
-                    _player?.ReverseMode(true);
+                    Player?.ReverseMode(true);
                 }
                 else
                 {
                     // ToggleButtonState.Inactive
-                    _player?.ReverseMode(false);
+                    Player?.ReverseMode(false);
                 }
             };
 
@@ -414,23 +375,23 @@ namespace Presentation.Desktop
                 //    return;
 
                 TStreamTime newPosition = new TStreamTime();
-                TStreamInfo info = GetStreamInfo(ref _player);
+                TStreamInfo info = GetStreamInfo(ref Player);
 
                 newPosition.ms = Convert.ToUInt32(
-                    args.X * info.Length.ms / Convert.ToDouble(((ProgressBarAdv) sender).Size.Width));
+                    args.X * info.Length.ms / Convert.ToDouble(((ProgressBarAdv)sender).Size.Width));
 
 
-                _player?.Seek(TTimeFormat.tfMillisecond, ref newPosition, TSeekMethod.smFromBeginning);
+                Player?.Seek(TTimeFormat.tfMillisecond, ref newPosition, TSeekMethod.smFromBeginning);
             };
 
             _volumeRadialMenuSlider.SliderValueChanged += (sender, args) =>
             {
-                int volumeLevel = (int) ((RadialMenuSlider) sender).SliderValue;
+                int volumeLevel = (int)((RadialMenuSlider)sender).SliderValue;
 
                 if (FFTPictureBox.InvokeRequired)
-                    FFTPictureBox.Invoke((MethodInvoker) (() => { _player?.SetPlayerVolume(volumeLevel, volumeLevel); }));
+                    FFTPictureBox.Invoke((MethodInvoker)(() => { Player?.SetPlayerVolume(volumeLevel, volumeLevel); }));
                 else
-                    _player?.SetPlayerVolume(volumeLevel, volumeLevel);
+                    Player?.SetPlayerVolume(volumeLevel, volumeLevel);
             };
 
             volumePictureBox.Click += (sender, args) =>
@@ -509,24 +470,24 @@ namespace Presentation.Desktop
             {
                 IntPtr MyDeviceContext = default(IntPtr);
                 MyDeviceContext = args.Graphics.GetHdc();
-                _player?.DrawFFTGraphOnHDC(MyDeviceContext, 0, 0, FFTPictureBox.Width, FFTPictureBox.Height);
+                Player?.DrawFFTGraphOnHDC(MyDeviceContext, 0, 0, FFTPictureBox.Width, FFTPictureBox.Height);
                 args.Graphics.ReleaseHdc(MyDeviceContext);
             };
 
             playToggleButton.ToggleStateChanged += (sender, args) =>
             {
-                if (_player == null)
+                if (Player == null)
                     return;
 
                 if (playToggleButton.ToggleState == ToggleButtonState.Active)
                 {
-                    _player.StartPlayback();
+                    Player.StartPlayback();
                     //_timer.Start();
                     return;
                 }
                 else
                 {
-                    _player.StopPlayback(); // ToggleButtonState.Inactive
+                    Player.StopPlayback(); // ToggleButtonState.Inactive
                     //_timer.Stop();
                 }
             };
@@ -560,14 +521,14 @@ namespace Presentation.Desktop
 
             playerVolumeTrackBarEx.Scroll += (sender, args) =>
             {
-                int volumeLevel = ((TrackBarEx) sender).Value;
-                _player?.SetPlayerVolume(volumeLevel, volumeLevel);
+                int volumeLevel = ((TrackBarEx)sender).Value;
+                Player?.SetPlayerVolume(volumeLevel, volumeLevel);
             };
 
             masterVolumeTrackBarEx.Scroll += (sender, args) =>
             {
-                int volumeLevel = ((TrackBarEx) sender).Value;
-                _player?.SetMasterVolume(volumeLevel, volumeLevel);
+                int volumeLevel = ((TrackBarEx)sender).Value;
+                Player?.SetMasterVolume(volumeLevel, volumeLevel);
             };
 
             this.MouseDown += (sender, mouseEventArgs) =>
@@ -581,89 +542,90 @@ namespace Presentation.Desktop
 
             closePictureBox.Click += (sender, args) => this.Close();
 
-            // MainForm Control Buttons
+            #region SecondForm Control Buttons
 
-            #region MainForm Control Buttons
-
-            ReplayPictureBox.Click += (sender, args) =>
-            {
-                if (_player == null)
-                    return;
-
-                _secondForm?.OnReplayPictureBoxOnClick(null, null);
-
-                _player.StopPlayback();
-                _isPlaying = _player.StartPlayback();
-                _isPaused = false;
-            };
-            PlayResumePictureBox.Click += (sender, args) =>
-            {
-                if (_player == null || _isPlaying)
-                    return;
-
-                _secondForm?.OnPlayResumePictureBoxOnClick(null, null);
-
-                if (_isPaused)
-                {
-                    _isPlaying = _player.ResumePlayback();
-                    _isPaused = !_isPlaying;
-
-                    return;
-                }
-
-                // It was not playing at all or even stopped
-                _isPlaying = _player.StartPlayback();
-                _isPaused = !_isPlaying;
-            };
-            PausePictureBox.Click += (sender, args) =>
-            {
-                if (_player == null)
-                    return;
-
-                _secondForm?.OnPausePictureBoxOnClick(null, null);
-
-                _isPaused = _player.PausePlayback();
-                _isPlaying = !_isPaused;
-            };
-            StopPictureBox.Click += (sender, args) =>
-            {
-                if (_player == null)
-                    return;
-
-                _secondForm?.OnStopPictureBoxOnClick(null, null);
-
-                _player.StopPlayback();
-
-                _isPaused = false;
-                _isPlaying = false;
-            };
-            RewindPictureBox.Click += (sender, args) =>
-            {
-                if (_player == null)
-                    return;
-
-                _secondForm?.OnRewindPictureBoxOnClick(null, null);
-
-                TStreamTime position = new TStreamTime();
-                TStreamInfo info = GetStreamInfo(ref _player);
-                position.sec = Convert.ToUInt32(0.05 * info.Length.sec); // 5%
-                _player?.Seek(TTimeFormat.tfSecond, ref position, TSeekMethod.smFromCurrentBackward);
-            };
-            FastForwardPictureBox.Click += (sender, args) =>
-            {
-                if (_player == null)
-                    return;
-
-                _secondForm?.OnFastForwardPictureBoxOnClick(null, null);
-
-                TStreamTime position = new TStreamTime();
-                TStreamInfo info = GetStreamInfo(ref _player);
-                position.sec = Convert.ToUInt32(0.05 * info.Length.sec); // 5%
-                _player?.Seek(TTimeFormat.tfSecond, ref position, TSeekMethod.smFromCurrentForward);
-            };
+            ReplayPictureBox.Click += OnReplayPictureBoxOnClick;
+            PlayResumePictureBox.Click += OnPlayResumePictureBoxOnClick;
+            PausePictureBox.Click += OnPausePictureBoxOnClick;
+            StopPictureBox.Click += OnStopPictureBoxOnClick;
+            RewindPictureBox.Click += OnRewindPictureBoxOnClick;
+            FastForwardPictureBox.Click += OnFastForwardPictureBoxOnClick;
 
             #endregion
         }
+
+        #region SecondForm Control Buttons Named Methods
+
+        public void OnFastForwardPictureBoxOnClick(object sender, EventArgs args)
+        {
+            if (Player == null)
+                return;
+
+            TStreamTime position = new TStreamTime();
+            TStreamInfo info = GetStreamInfo(ref Player);
+            position.sec = Convert.ToUInt32(0.05 * info.Length.sec); // 5%
+            Player?.Seek(TTimeFormat.tfSecond, ref position, TSeekMethod.smFromCurrentForward);
+        }
+
+        public void OnRewindPictureBoxOnClick(object sender, EventArgs args)
+        {
+            if (Player == null)
+                return;
+
+            TStreamTime position = new TStreamTime();
+            TStreamInfo info = GetStreamInfo(ref Player);
+            position.sec = Convert.ToUInt32(0.05 * info.Length.sec); // 5%
+            Player?.Seek(TTimeFormat.tfSecond, ref position, TSeekMethod.smFromCurrentBackward);
+        }
+
+        public void OnStopPictureBoxOnClick(object sender, EventArgs args)
+        {
+            if (Player == null)
+                return;
+
+            Player.StopPlayback();
+
+            _isPaused = false;
+            _isPlaying = false;
+        }
+
+        public void OnPausePictureBoxOnClick(object sender, EventArgs args)
+        {
+            if (Player == null)
+                return;
+
+            _isPaused = Player.PausePlayback();
+            _isPlaying = !_isPaused;
+        }
+
+        public void OnPlayResumePictureBoxOnClick(object sender, EventArgs args)
+        {
+            if (Player == null || _isPlaying)
+                return;
+
+            if (_isPaused)
+            {
+                _isPlaying = Player.ResumePlayback();
+                _isPaused = !_isPlaying;
+                return;
+            }
+
+            // It was not playing at all or even stopped
+            _isPlaying = Player.StartPlayback();
+            _isPaused = !_isPlaying;
+        }
+
+        public void OnReplayPictureBoxOnClick(object sender, EventArgs args)
+        {
+            if (Player == null)
+                return;
+
+            Player.StopPlayback();
+            _isPlaying = Player.StartPlayback();
+            _isPaused = false;
+        }
+
+        #endregion
 
         private void SetControlsProperties()
         {
@@ -700,7 +662,7 @@ namespace Presentation.Desktop
 
             #endregion
 
-            #region MainForm
+            #region SecondForm
 
             this.BackColor = Color.FromArgb(226, 226, 226);
             this.FormBorderStyle = FormBorderStyle.None;
@@ -722,8 +684,8 @@ namespace Presentation.Desktop
 
             #region Load Audio File
 
-            firstLoadAudioFileButtonAdv.Text = @"Load First Track";
-            secondLoadAudioFileButtonAdv.Text = @"Load Second Track";
+            loadAudioFileButtonAdv.Text = @"LOAD AN AUDIO TRACK";
+            //secondLoadAudioFileButtonAdv.Text = @"Load Second Track";
 
             #endregion
 
@@ -865,7 +827,7 @@ namespace Presentation.Desktop
 
             #region numberPictureBox
 
-            numberPictureBox.Image = Image.FromFile(@"Icons\one.png");
+            numberPictureBox.Image = Image.FromFile(@"Icons\two.png");
             numberPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             numberPictureBox.BackColor = Color.Transparent;
 
@@ -880,7 +842,13 @@ namespace Presentation.Desktop
             #endregion
         }
 
-        private decimal BpmToPeriodicity(int bpm) => (decimal) 1 / bpm;
-        private int PeriodicityToBPM(decimal periodicity) => (int) (1 / periodicity);
+        private decimal BpmToPeriodicity(int bpm) => (decimal)1 / bpm;
+        private int PeriodicityToBPM(decimal periodicity) => (int)(1 / periodicity);
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            _timer?.Dispose();
+        }
     }
 }
