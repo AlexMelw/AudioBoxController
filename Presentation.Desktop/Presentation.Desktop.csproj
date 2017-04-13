@@ -137,6 +137,7 @@
     <Content Include="Resources\File-Music-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Jommans-Ladybug-File-Music.ico" />
     <Content Include="Resources\metronom.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

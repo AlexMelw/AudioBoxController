@@ -1,16 +1,10 @@
 using System;
 using System.Drawing;
-using System.Drawing.Printing;
 using System.IO;
-using System.Linq;
-using System.Media;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
-using AxWMPLib;
 using libZPlay;
 using Presentation.Desktop.Properties;
-using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
 using Timer = System.Threading.Timer;
 
@@ -18,21 +12,6 @@ namespace Presentation.Desktop
 {
     public partial class MainForm : Form
     {
-        //This is a replacement for Cursor.Position in WinForms
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        static extern bool SetCursorPos(int x, int y);
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
-
-        //This simulates a left mouse click
-        public static void LeftMouseClick(int xpos, int ypos)
-        {
-            SetCursorPos(xpos, ypos);
-            mouse_event(MOUSEEVENTF_LEFTDOWN, xpos, ypos, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, xpos, ypos, 0, 0);
-        }
-
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -59,6 +38,9 @@ namespace Presentation.Desktop
             _volumeRadialMenuSlider = new RadialMenuSlider();
 
             // THIS IS System.Windows.Forms.Timers.Timer
+
+            #region THIS IS System.Windows.Forms.Timers.Timer
+
             //_timer = new Timer();
             //_timer.Interval = 50;
             //_timer.Tick += (sender, args) =>
@@ -76,7 +58,12 @@ namespace Presentation.Desktop
             //        UpdateProgressBar(ref player);
             //};
 
+            #endregion
+
             // THIS IS System.Threading.Timer
+
+            #region THIS IS System.Threading.Timer
+
             _timer = new Timer(
                 callback: o =>
                 {
@@ -99,15 +86,26 @@ namespace Presentation.Desktop
                 state: null,
                 dueTime: 0,
                 period: 50);
+
+            #endregion
         }
 
         #endregion
 
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
+        //This simulates a left mouse click
+        public static void LeftMouseClick(int xpos, int ypos)
+        {
+            SetCursorPos(xpos, ypos);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, xpos, ypos, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, xpos, ypos, 0, 0);
+        }
+
+        //This is a replacement for Cursor.Position in WinForms
         [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
+        private static extern bool SetCursorPos(int x, int y);
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -210,33 +208,9 @@ namespace Presentation.Desktop
             if (IsAudioTrackEndReached(ref player))
             {
                 NormalizeMetronomeToggleButton(ref player);
-                //NormalizeReversePlaybackToggleButton(ref player);
-
-                //if (metronomeToggleButton.InvokeRequired)
-                //    metronomeToggleButton.Invoke((MethodInvoker) (() =>
-                //        _metronomePlayer?.StopPlayback()));
-                //else
-                //{
-                //    _metronomePlayer?.StopPlayback();
-                //}
                 _metronomePlayer?.StopPlayback();
             }
         }
-
-        //private void NormalizeReversePlaybackToggleButton(ref ZPlay player)
-        //{
-        //    if (IsAudioTrackBeginningReached(ref player) && _isReverseModeSwitch)
-        //    {
-        //        if (reversePlaybackToggleButton.InvokeRequired)
-        //            reversePlaybackToggleButton.Invoke((MethodInvoker)(() =>
-        //               reversePlaybackToggleButton.SwitchState()));
-        //        else
-        //            reversePlaybackToggleButton.SwitchState();
-
-        //        _isReverseModeSwitch = false;
-        //    }
-
-        //}
 
         private void NormalizeMetronomeToggleButton(ref ZPlay player)
         {
@@ -341,7 +315,9 @@ namespace Presentation.Desktop
             };
 
 
-            // freeeeeeeeeeeee
+            // Frequncy
+
+            #region Frequency
 
             frequencyTrackBarEx.MouseUp += (sender, args) =>
             {
@@ -357,7 +333,11 @@ namespace Presentation.Desktop
                 _metronomePlayer?.SetPitch(pitchValue);
             };
 
-            // periooooooooooooooo
+            #endregion
+
+            // Periodicity
+
+            #region Periodicity
 
             periodicityTrackBarEx.MouseUp += (sender, args) =>
             {
@@ -376,6 +356,8 @@ namespace Presentation.Desktop
                 _metronomePlayer?.SetTempo(periodicityTrackBarEx.Maximum - periodicityTrackBarEx.Value +
                                            periodicityTrackBarEx.Minimum);
             };
+
+            #endregion
 
 
             rateTrackBarEx.Click += (sender, args) =>
@@ -705,8 +687,7 @@ namespace Presentation.Desktop
             this.BackColor = Color.FromArgb(226, 226, 226);
             this.FormBorderStyle = FormBorderStyle.None;
             this.BackgroundImage = Image.FromFile(@"Resources\stripes.png");
-
-            //this.Height = 300;
+            this.Icon = Resources.AppIcon;
 
             #endregion
 
@@ -882,5 +863,15 @@ namespace Presentation.Desktop
 
         private decimal BpmToPeriodicity(int bpm) => (decimal) 1 / bpm;
         private int PeriodicityToBPM(decimal periodicity) => (int) (1 / periodicity);
+
+        #region Import Win32 Functions for making form draggable  
+
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        #endregion
     }
 }
