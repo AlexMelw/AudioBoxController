@@ -315,7 +315,7 @@ namespace Presentation.Desktop
             };
 
 
-            // Frequncy
+            // METRONOME SECTION
 
             #region Frequency
 
@@ -334,8 +334,6 @@ namespace Presentation.Desktop
             };
 
             #endregion
-
-            // Periodicity
 
             #region Periodicity
 
@@ -360,15 +358,23 @@ namespace Presentation.Desktop
             #endregion
 
 
-            rateTrackBarEx.Click += (sender, args) =>
-            {
-                int rateValue = ((TrackBarEx) sender).Value;
-                _player?.SetTempo(rateValue);
-            };
+            //rateTrackBarEx.Click += (sender, args) =>
+            //{
+            //    int rateValue = ((TrackBarEx) sender).Value;
+            //    _player?.SetTempo(rateValue);
+            //};
 
-            tempoTrackBarEx.Click += (sender, args) =>
+            tempoTrackBarEx.MouseUp += (sender, args) =>
             {
                 int tempoValue = ((TrackBarEx) sender).Value;
+                tempoNumericUpDown.Value = tempoValue >= 10 ? tempoValue : 10;
+            };
+
+            tempoNumericUpDown.ValueChanged += (sender, args) =>
+            {
+                int tempoValue = (int) ((NumericUpDown) sender).Value;
+                tempoTrackBarEx.Value = tempoValue;
+
                 _player?.SetTempo(tempoValue);
             };
 
@@ -410,7 +416,8 @@ namespace Presentation.Desktop
                 int volumeLevel = (int) ((RadialMenuSlider) sender).SliderValue;
 
                 if (FFTPictureBox.InvokeRequired)
-                    FFTPictureBox.Invoke((MethodInvoker) (() => { _player?.SetPlayerVolume(volumeLevel, volumeLevel); }));
+                    FFTPictureBox.Invoke(
+                        (MethodInvoker) (() => { _player?.SetPlayerVolume(volumeLevel, volumeLevel); }));
                 else
                     _player?.SetPlayerVolume(volumeLevel, volumeLevel);
             };
@@ -649,6 +656,16 @@ namespace Presentation.Desktop
 
         private void SetControlsProperties()
         {
+            #region MainForm
+
+            this.BackColor = Color.FromArgb(226, 226, 226);
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.BackgroundImage = Image.FromFile(@"Resources\stripes.png");
+            this.Icon = Resources.AppIcon;
+            this.Text = "AudioBox";
+
+            #endregion
+
             #region Metronome Toggle Button
 
             metronomeToggleButton.ActiveState.BackColor = playToggleButton.InactiveState.BackColor;
@@ -679,15 +696,6 @@ namespace Presentation.Desktop
 
             reversePlaybackToggleButton.ActiveState.Text = @"DEACTIVATE   ";
             reversePlaybackToggleButton.InactiveState.Text = @"ACTIVATE   ";
-
-            #endregion
-
-            #region MainForm
-
-            this.BackColor = Color.FromArgb(226, 226, 226);
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.BackgroundImage = Image.FromFile(@"Resources\stripes.png");
-            this.Icon = Resources.AppIcon;
 
             #endregion
 
@@ -749,6 +757,15 @@ namespace Presentation.Desktop
             tempoTrackBarEx.Minimum = 10;
             tempoTrackBarEx.Maximum = 200;
             tempoTrackBarEx.Value = 100;
+
+            #endregion
+
+            #region Tempo NumericUpDown
+
+            tempoNumericUpDown.Minimum = 10;
+            tempoNumericUpDown.Maximum = 200;
+            tempoNumericUpDown.Value = 100;
+            tempoNumericUpDown.TextAlign = HorizontalAlignment.Center;
 
             #endregion
 

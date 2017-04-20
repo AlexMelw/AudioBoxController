@@ -339,15 +339,23 @@ namespace Presentation.Desktop
             };
 
 
-            rateTrackBarEx.Click += (sender, args) =>
-            {
-                int rateValue = ((TrackBarEx)sender).Value;
-                Player?.SetTempo(rateValue);
-            };
+            //rateTrackBarEx.Click += (sender, args) =>
+            //{
+            //    int rateValue = ((TrackBarEx)sender).Value;
+            //    Player?.SetTempo(rateValue);
+            //};
 
-            tempoTrackBarEx.Click += (sender, args) =>
+            tempoTrackBarEx.MouseUp += (sender, args) =>
             {
                 int tempoValue = ((TrackBarEx)sender).Value;
+                tempoNumericUpDown.Value = tempoValue >= 10 ? tempoValue : 10;
+            };
+
+            tempoNumericUpDown.ValueChanged += (sender, args) =>
+            {
+                int tempoValue = (int)((NumericUpDown)sender).Value;
+                tempoTrackBarEx.Value = tempoValue;
+
                 Player?.SetTempo(tempoValue);
             };
 
@@ -667,6 +675,7 @@ namespace Presentation.Desktop
             this.BackColor = Color.FromArgb(226, 226, 226);
             this.FormBorderStyle = FormBorderStyle.None;
             this.BackgroundImage = Image.FromFile(@"Resources\stripes.png");
+            this.Text = "AudioBox";
 
             //this.Height = 300;
 
@@ -730,6 +739,15 @@ namespace Presentation.Desktop
             tempoTrackBarEx.Minimum = 10;
             tempoTrackBarEx.Maximum = 200;
             tempoTrackBarEx.Value = 100;
+
+            #endregion
+
+            #region Tempo NumericUpDown
+
+            tempoNumericUpDown.Minimum = 10;
+            tempoNumericUpDown.Maximum = 200;
+            tempoNumericUpDown.Value = 100;
+            tempoNumericUpDown.TextAlign = HorizontalAlignment.Center;
 
             #endregion
 
@@ -849,6 +867,7 @@ namespace Presentation.Desktop
         {
             base.OnClosing(e);
             _timer?.Dispose();
+            Player?.StopPlayback();
         }
     }
 }

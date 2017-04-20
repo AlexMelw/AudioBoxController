@@ -36,18 +36,18 @@ namespace Presentation.Desktop
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection16 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection16 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer16 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
-            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection16 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
-            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection17 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection17 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer17 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
-            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection17 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
-            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection18 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection18 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer18 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
-            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection18 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
+            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection19 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection19 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer19 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
+            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection19 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
+            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection20 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection20 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer20 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
+            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection20 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
+            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection21 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection21 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer toggleButtonRenderer21 = new Syncfusion.Windows.Forms.Tools.ToggleButtonRenderer();
+            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection21 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
             this.playToggleButton = new Syncfusion.Windows.Forms.Tools.ToggleButton();
             this.closePictureBox = new System.Windows.Forms.PictureBox();
             this.firstLoadAudioFileButtonAdv = new Syncfusion.Windows.Forms.ButtonAdv();
@@ -116,17 +116,17 @@ namespace Presentation.Desktop
             // 
             // playToggleButton
             // 
-            this.playToggleButton.ActiveState = activeStateCollection16;
+            this.playToggleButton.ActiveState = activeStateCollection19;
             this.playToggleButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.playToggleButton.ForeColor = System.Drawing.Color.Black;
-            inactiveStateCollection16.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-            this.playToggleButton.InactiveState = inactiveStateCollection16;
+            inactiveStateCollection19.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+            this.playToggleButton.InactiveState = inactiveStateCollection19;
             this.playToggleButton.Location = new System.Drawing.Point(691, 240);
             this.playToggleButton.MinimumSize = new System.Drawing.Size(52, 20);
             this.playToggleButton.Name = "playToggleButton";
-            this.playToggleButton.Renderer = toggleButtonRenderer16;
+            this.playToggleButton.Renderer = toggleButtonRenderer19;
             this.playToggleButton.Size = new System.Drawing.Size(90, 40);
-            this.playToggleButton.Slider = sliderCollection16;
+            this.playToggleButton.Slider = sliderCollection19;
             this.playToggleButton.TabIndex = 0;
             this.playToggleButton.Text = "toggleButton1";
             // 
@@ -265,7 +265,7 @@ namespace Presentation.Desktop
             // 
             // PlayResumePictureBox
             // 
-            this.PlayResumePictureBox.Location = new System.Drawing.Point(106, 31);
+            this.PlayResumePictureBox.Location = new System.Drawing.Point(238, 31);
             this.PlayResumePictureBox.Name = "PlayResumePictureBox";
             this.PlayResumePictureBox.Size = new System.Drawing.Size(60, 50);
             this.PlayResumePictureBox.TabIndex = 42;
@@ -273,7 +273,7 @@ namespace Presentation.Desktop
             // 
             // StopPictureBox
             // 
-            this.StopPictureBox.Location = new System.Drawing.Point(303, 31);
+            this.StopPictureBox.Location = new System.Drawing.Point(103, 31);
             this.StopPictureBox.Name = "StopPictureBox";
             this.StopPictureBox.Size = new System.Drawing.Size(60, 50);
             this.StopPictureBox.TabIndex = 44;
@@ -281,7 +281,7 @@ namespace Presentation.Desktop
             // 
             // PausePictureBox
             // 
-            this.PausePictureBox.Location = new System.Drawing.Point(234, 32);
+            this.PausePictureBox.Location = new System.Drawing.Point(304, 31);
             this.PausePictureBox.Name = "PausePictureBox";
             this.PausePictureBox.Size = new System.Drawing.Size(60, 50);
             this.PausePictureBox.TabIndex = 43;
@@ -377,17 +377,17 @@ namespace Presentation.Desktop
             // 
             // reversePlaybackToggleButton
             // 
-            this.reversePlaybackToggleButton.ActiveState = activeStateCollection17;
+            this.reversePlaybackToggleButton.ActiveState = activeStateCollection20;
             this.reversePlaybackToggleButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.reversePlaybackToggleButton.ForeColor = System.Drawing.Color.Black;
-            inactiveStateCollection17.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-            this.reversePlaybackToggleButton.InactiveState = inactiveStateCollection17;
+            inactiveStateCollection20.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+            this.reversePlaybackToggleButton.InactiveState = inactiveStateCollection20;
             this.reversePlaybackToggleButton.Location = new System.Drawing.Point(10, 19);
             this.reversePlaybackToggleButton.MinimumSize = new System.Drawing.Size(52, 20);
             this.reversePlaybackToggleButton.Name = "reversePlaybackToggleButton";
-            this.reversePlaybackToggleButton.Renderer = toggleButtonRenderer17;
+            this.reversePlaybackToggleButton.Renderer = toggleButtonRenderer20;
             this.reversePlaybackToggleButton.Size = new System.Drawing.Size(154, 40);
-            this.reversePlaybackToggleButton.Slider = sliderCollection17;
+            this.reversePlaybackToggleButton.Slider = sliderCollection20;
             this.reversePlaybackToggleButton.TabIndex = 33;
             this.reversePlaybackToggleButton.Text = "toggleButton1";
             // 
@@ -506,17 +506,17 @@ namespace Presentation.Desktop
             // 
             // metronomeToggleButton
             // 
-            this.metronomeToggleButton.ActiveState = activeStateCollection18;
+            this.metronomeToggleButton.ActiveState = activeStateCollection21;
             this.metronomeToggleButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.metronomeToggleButton.ForeColor = System.Drawing.Color.Black;
-            inactiveStateCollection18.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-            this.metronomeToggleButton.InactiveState = inactiveStateCollection18;
+            inactiveStateCollection21.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+            this.metronomeToggleButton.InactiveState = inactiveStateCollection21;
             this.metronomeToggleButton.Location = new System.Drawing.Point(12, 18);
             this.metronomeToggleButton.MinimumSize = new System.Drawing.Size(52, 20);
             this.metronomeToggleButton.Name = "metronomeToggleButton";
-            this.metronomeToggleButton.Renderer = toggleButtonRenderer18;
+            this.metronomeToggleButton.Renderer = toggleButtonRenderer21;
             this.metronomeToggleButton.Size = new System.Drawing.Size(92, 40);
-            this.metronomeToggleButton.Slider = sliderCollection18;
+            this.metronomeToggleButton.Slider = sliderCollection21;
             this.metronomeToggleButton.TabIndex = 35;
             this.metronomeToggleButton.Text = "toggleButton1";
             // 

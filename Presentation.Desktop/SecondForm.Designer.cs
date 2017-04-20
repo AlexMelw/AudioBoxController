@@ -54,15 +54,6 @@ namespace Presentation.Desktop
             this.playerVolumeTrackBarEx = new Syncfusion.Windows.Forms.Tools.TrackBarEx(0, 10);
             this.masterVolumeTrackBarEx = new Syncfusion.Windows.Forms.Tools.TrackBarEx(0, 10);
             this.FFTGroupBox = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.FastForwardPictureBox = new System.Windows.Forms.PictureBox();
-            this.ReplayPictureBox = new System.Windows.Forms.PictureBox();
-            this.RewindPictureBox = new System.Windows.Forms.PictureBox();
-            this.PlayResumePictureBox = new System.Windows.Forms.PictureBox();
-            this.StopPictureBox = new System.Windows.Forms.PictureBox();
-            this.PausePictureBox = new System.Windows.Forms.PictureBox();
             this.FFTPictureBox = new System.Windows.Forms.PictureBox();
             this.playbackProgressBarAdv = new Syncfusion.Windows.Forms.Tools.ProgressBarAdv();
             this.pitchTrackBarEx = new Syncfusion.Windows.Forms.Tools.TrackBarEx(0, 10);
@@ -86,16 +77,18 @@ namespace Presentation.Desktop
             this.tempoNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.numberPictureBox = new System.Windows.Forms.PictureBox();
             this.nicePictureBox = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.FastForwardPictureBox = new System.Windows.Forms.PictureBox();
+            this.ReplayPictureBox = new System.Windows.Forms.PictureBox();
+            this.RewindPictureBox = new System.Windows.Forms.PictureBox();
+            this.PlayResumePictureBox = new System.Windows.Forms.PictureBox();
+            this.StopPictureBox = new System.Windows.Forms.PictureBox();
+            this.PausePictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.playToggleButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).BeginInit();
             this.FFTGroupBox.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FastForwardPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ReplayPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RewindPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PlayResumePictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StopPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PausePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FFTPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playbackProgressBarAdv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reversePlaybackToggleButton)).BeginInit();
@@ -111,6 +104,13 @@ namespace Presentation.Desktop
             ((System.ComponentModel.ISupportInitialize)(this.tempoNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nicePictureBox)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FastForwardPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReplayPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RewindPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayResumePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StopPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PausePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // playToggleButton
@@ -193,88 +193,6 @@ namespace Presentation.Desktop
             this.FFTGroupBox.TabIndex = 28;
             this.FFTGroupBox.TabStop = false;
             this.FFTGroupBox.Text = "FFT";
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.FastForwardPictureBox);
-            this.panel1.Controls.Add(this.ReplayPictureBox);
-            this.panel1.Controls.Add(this.RewindPictureBox);
-            this.panel1.Controls.Add(this.PlayResumePictureBox);
-            this.panel1.Controls.Add(this.StopPictureBox);
-            this.panel1.Controls.Add(this.PausePictureBox);
-            this.panel1.Location = new System.Drawing.Point(6, 334);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(601, 89);
-            this.panel1.TabIndex = 47;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(553, 51);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
-            this.label3.TabIndex = 49;
-            this.label3.Text = "+5 %";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(404, 52);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
-            this.label2.TabIndex = 48;
-            this.label2.Text = "-5 %";
-            // 
-            // FastForwardPictureBox
-            // 
-            this.FastForwardPictureBox.Location = new System.Drawing.Point(499, 31);
-            this.FastForwardPictureBox.Name = "FastForwardPictureBox";
-            this.FastForwardPictureBox.Size = new System.Drawing.Size(60, 50);
-            this.FastForwardPictureBox.TabIndex = 46;
-            this.FastForwardPictureBox.TabStop = false;
-            // 
-            // ReplayPictureBox
-            // 
-            this.ReplayPictureBox.Location = new System.Drawing.Point(34, 31);
-            this.ReplayPictureBox.Name = "ReplayPictureBox";
-            this.ReplayPictureBox.Size = new System.Drawing.Size(60, 50);
-            this.ReplayPictureBox.TabIndex = 41;
-            this.ReplayPictureBox.TabStop = false;
-            // 
-            // RewindPictureBox
-            // 
-            this.RewindPictureBox.Location = new System.Drawing.Point(429, 31);
-            this.RewindPictureBox.Name = "RewindPictureBox";
-            this.RewindPictureBox.Size = new System.Drawing.Size(60, 50);
-            this.RewindPictureBox.TabIndex = 45;
-            this.RewindPictureBox.TabStop = false;
-            // 
-            // PlayResumePictureBox
-            // 
-            this.PlayResumePictureBox.Location = new System.Drawing.Point(106, 31);
-            this.PlayResumePictureBox.Name = "PlayResumePictureBox";
-            this.PlayResumePictureBox.Size = new System.Drawing.Size(60, 50);
-            this.PlayResumePictureBox.TabIndex = 42;
-            this.PlayResumePictureBox.TabStop = false;
-            // 
-            // StopPictureBox
-            // 
-            this.StopPictureBox.Location = new System.Drawing.Point(303, 31);
-            this.StopPictureBox.Name = "StopPictureBox";
-            this.StopPictureBox.Size = new System.Drawing.Size(60, 50);
-            this.StopPictureBox.TabIndex = 44;
-            this.StopPictureBox.TabStop = false;
-            // 
-            // PausePictureBox
-            // 
-            this.PausePictureBox.Location = new System.Drawing.Point(234, 32);
-            this.PausePictureBox.Name = "PausePictureBox";
-            this.PausePictureBox.Size = new System.Drawing.Size(60, 50);
-            this.PausePictureBox.TabIndex = 43;
-            this.PausePictureBox.TabStop = false;
             // 
             // FFTPictureBox
             // 
@@ -559,6 +477,88 @@ namespace Presentation.Desktop
             this.nicePictureBox.TabIndex = 42;
             this.nicePictureBox.TabStop = false;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.FastForwardPictureBox);
+            this.panel1.Controls.Add(this.ReplayPictureBox);
+            this.panel1.Controls.Add(this.RewindPictureBox);
+            this.panel1.Controls.Add(this.PlayResumePictureBox);
+            this.panel1.Controls.Add(this.StopPictureBox);
+            this.panel1.Controls.Add(this.PausePictureBox);
+            this.panel1.Location = new System.Drawing.Point(6, 334);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(601, 89);
+            this.panel1.TabIndex = 48;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(553, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 49;
+            this.label3.Text = "+5 %";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(404, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(31, 13);
+            this.label2.TabIndex = 48;
+            this.label2.Text = "-5 %";
+            // 
+            // FastForwardPictureBox
+            // 
+            this.FastForwardPictureBox.Location = new System.Drawing.Point(499, 31);
+            this.FastForwardPictureBox.Name = "FastForwardPictureBox";
+            this.FastForwardPictureBox.Size = new System.Drawing.Size(60, 50);
+            this.FastForwardPictureBox.TabIndex = 46;
+            this.FastForwardPictureBox.TabStop = false;
+            // 
+            // ReplayPictureBox
+            // 
+            this.ReplayPictureBox.Location = new System.Drawing.Point(34, 31);
+            this.ReplayPictureBox.Name = "ReplayPictureBox";
+            this.ReplayPictureBox.Size = new System.Drawing.Size(60, 50);
+            this.ReplayPictureBox.TabIndex = 41;
+            this.ReplayPictureBox.TabStop = false;
+            // 
+            // RewindPictureBox
+            // 
+            this.RewindPictureBox.Location = new System.Drawing.Point(429, 31);
+            this.RewindPictureBox.Name = "RewindPictureBox";
+            this.RewindPictureBox.Size = new System.Drawing.Size(60, 50);
+            this.RewindPictureBox.TabIndex = 45;
+            this.RewindPictureBox.TabStop = false;
+            // 
+            // PlayResumePictureBox
+            // 
+            this.PlayResumePictureBox.Location = new System.Drawing.Point(238, 31);
+            this.PlayResumePictureBox.Name = "PlayResumePictureBox";
+            this.PlayResumePictureBox.Size = new System.Drawing.Size(60, 50);
+            this.PlayResumePictureBox.TabIndex = 42;
+            this.PlayResumePictureBox.TabStop = false;
+            // 
+            // StopPictureBox
+            // 
+            this.StopPictureBox.Location = new System.Drawing.Point(103, 31);
+            this.StopPictureBox.Name = "StopPictureBox";
+            this.StopPictureBox.Size = new System.Drawing.Size(60, 50);
+            this.StopPictureBox.TabIndex = 44;
+            this.StopPictureBox.TabStop = false;
+            // 
+            // PausePictureBox
+            // 
+            this.PausePictureBox.Location = new System.Drawing.Point(304, 31);
+            this.PausePictureBox.Name = "PausePictureBox";
+            this.PausePictureBox.Size = new System.Drawing.Size(60, 50);
+            this.PausePictureBox.TabIndex = 43;
+            this.PausePictureBox.TabStop = false;
+            // 
             // SecondForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -584,14 +584,6 @@ namespace Presentation.Desktop
             ((System.ComponentModel.ISupportInitialize)(this.playToggleButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).EndInit();
             this.FFTGroupBox.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FastForwardPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ReplayPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RewindPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PlayResumePictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StopPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PausePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FFTPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playbackProgressBarAdv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reversePlaybackToggleButton)).EndInit();
@@ -610,6 +602,14 @@ namespace Presentation.Desktop
             ((System.ComponentModel.ISupportInitialize)(this.tempoNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nicePictureBox)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FastForwardPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReplayPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RewindPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayResumePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StopPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PausePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -644,17 +644,17 @@ namespace Presentation.Desktop
         private System.Windows.Forms.TextBox periodicityTextBox;
         private System.Windows.Forms.GroupBox audioSpeedGroupBox;
         private System.Windows.Forms.NumericUpDown tempoNumericUpDown;
-        private System.Windows.Forms.PictureBox ReplayPictureBox;
-        private System.Windows.Forms.PictureBox PlayResumePictureBox;
-        private System.Windows.Forms.PictureBox PausePictureBox;
-        private System.Windows.Forms.PictureBox StopPictureBox;
-        private System.Windows.Forms.PictureBox RewindPictureBox;
-        private System.Windows.Forms.PictureBox FastForwardPictureBox;
+        private System.Windows.Forms.PictureBox numberPictureBox;
+        private System.Windows.Forms.PictureBox nicePictureBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox numberPictureBox;
-        private System.Windows.Forms.PictureBox nicePictureBox;
+        private System.Windows.Forms.PictureBox FastForwardPictureBox;
+        private System.Windows.Forms.PictureBox ReplayPictureBox;
+        private System.Windows.Forms.PictureBox RewindPictureBox;
+        private System.Windows.Forms.PictureBox PlayResumePictureBox;
+        private System.Windows.Forms.PictureBox StopPictureBox;
+        private System.Windows.Forms.PictureBox PausePictureBox;
     }
 }
 
