@@ -550,7 +550,7 @@ namespace Presentation.Desktop
 
             closePictureBox.Click += (sender, args) => this.Close();
 
-            #region SecondForm Control Buttons
+            #region _secondForm Control Buttons
 
             ReplayPictureBox.Click += OnReplayPictureBoxOnClick;
             PlayResumePictureBox.Click += OnPlayResumePictureBoxOnClick;
@@ -562,7 +562,7 @@ namespace Presentation.Desktop
             #endregion
         }
 
-        #region SecondForm Control Buttons Named Methods
+        #region _secondForm Control Buttons Named Methods
 
         public void OnFastForwardPictureBoxOnClick(object sender, EventArgs args)
         {
@@ -670,7 +670,7 @@ namespace Presentation.Desktop
 
             #endregion
 
-            #region SecondForm
+            #region _secondForm
 
             this.BackColor = Color.FromArgb(226, 226, 226);
             this.FormBorderStyle = FormBorderStyle.None;
@@ -868,6 +868,10 @@ namespace Presentation.Desktop
             base.OnClosing(e);
             _timer?.Dispose();
             Player?.StopPlayback();
+            Player?.Dispose();
+            Player = null;
+
+            (Owner as MainForm)?.SetSecondForm(null);
         }
     }
 }

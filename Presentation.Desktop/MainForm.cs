@@ -28,6 +28,7 @@ namespace Presentation.Desktop
         private bool _isPaused = false;
         private bool _isPlaying = false;
         private SecondForm _secondForm;
+        public void SetSecondForm(SecondForm value) => _secondForm = value;
 
         #region CONSTRUCTORS
 
@@ -258,7 +259,7 @@ namespace Presentation.Desktop
                     {
                         try
                         {
-                            _secondForm.Player?.StopPlayback();
+                            //_secondForm.Player?.StopPlayback();
                             _secondForm.SetIsPaused(false);
                             _secondForm.SetIsPlaying(false);
 

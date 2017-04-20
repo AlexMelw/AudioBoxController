@@ -559,7 +559,7 @@ namespace Presentation.Desktop
             this.PausePictureBox.TabIndex = 43;
             this.PausePictureBox.TabStop = false;
             // 
-            // SecondForm
+            // _secondForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -579,7 +579,7 @@ namespace Presentation.Desktop
             this.Controls.Add(this.loadAudioFileButtonAdv);
             this.Controls.Add(this.playToggleButton);
             this.Name = "SecondForm";
-            this.Text = "SecondForm";
+            this.Text = "_secondForm";
             this.Load += new System.EventHandler(this.SecondForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.playToggleButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).EndInit();
